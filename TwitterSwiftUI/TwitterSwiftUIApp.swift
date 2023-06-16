@@ -4,7 +4,7 @@ import SwiftUI
 struct TwitterSwiftUIApp: App {
     var body: some Scene {
 		WindowGroup {
-			FeedView()
+			MainTabView()
 		}
 	}
 }
