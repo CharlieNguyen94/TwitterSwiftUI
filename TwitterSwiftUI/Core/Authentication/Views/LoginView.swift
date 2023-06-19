@@ -3,6 +3,7 @@ import SwiftUI
 struct LoginView: View {
 	@State private var email = ""
 	@State private var password = ""
+	@EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
 		VStack {
@@ -39,7 +40,7 @@ struct LoginView: View {
 			}
 
 			AuthButton(title: "Sign In") {
-				
+				viewModel.login(withEmail: email, password: password)
 			}
 
 			Spacer()
