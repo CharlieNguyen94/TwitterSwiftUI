@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		95874A192A41A0AD00135B2D /* ProfilePhotoSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95874A182A41A0AD00135B2D /* ProfilePhotoSelectorView.swift */; };
+		95874A1D2A41AAE800135B2D /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95874A1C2A41AAE800135B2D /* ImageUploader.swift */; };
 		95F0C7642A3B723D00F9BFA3 /* TwitterSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F0C7632A3B723D00F9BFA3 /* TwitterSwiftUIApp.swift */; };
 		95F0C7662A3B723D00F9BFA3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F0C7652A3B723D00F9BFA3 /* ContentView.swift */; };
 		95F0C7682A3B723F00F9BFA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95F0C7672A3B723F00F9BFA3 /* Assets.xcassets */; };
@@ -38,9 +40,12 @@
 		95F0C7C32A40A2A000F9BFA3 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 95F0C7C22A40A2A000F9BFA3 /* FirebaseFirestoreSwift */; };
 		95F0C7C52A40A2A000F9BFA3 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 95F0C7C42A40A2A000F9BFA3 /* FirebaseStorage */; };
 		95F0C7C72A40B34800F9BFA3 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F0C7C62A40B34800F9BFA3 /* AuthViewModel.swift */; };
+		95F0C7CB2A4109EB00F9BFA3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F0C7CA2A4109EB00F9BFA3 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		95874A182A41A0AD00135B2D /* ProfilePhotoSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoSelectorView.swift; sourceTree = "<group>"; };
+		95874A1C2A41AAE800135B2D /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		95F0C7602A3B723D00F9BFA3 /* TwitterSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95F0C7632A3B723D00F9BFA3 /* TwitterSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterSwiftUIApp.swift; sourceTree = "<group>"; };
 		95F0C7652A3B723D00F9BFA3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +74,7 @@
 		95F0C7B92A409E5E00F9BFA3 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		95F0C7BB2A40A22B00F9BFA3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		95F0C7C62A40B34800F9BFA3 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		95F0C7CA2A4109EB00F9BFA3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +152,7 @@
 		95F0C7722A3C78F900F9BFA3 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				95874A1C2A41AAE800135B2D /* ImageUploader.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -153,6 +160,7 @@
 		95F0C7732A3C78FA00F9BFA3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				95F0C7CA2A4109EB00F9BFA3 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -355,6 +363,7 @@
 			children = (
 				95F0C7AE2A40973800F9BFA3 /* LoginView.swift */,
 				95F0C7B22A409A7F00F9BFA3 /* RegistrationView.swift */,
+				95874A182A41A0AD00135B2D /* ProfilePhotoSelectorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -475,6 +484,7 @@
 				95F0C78A2A3C8F9100F9BFA3 /* MessagesView.swift in Sources */,
 				95F0C78E2A4036FF00F9BFA3 /* ProfileView.swift in Sources */,
 				95F0C7662A3B723D00F9BFA3 /* ContentView.swift in Sources */,
+				95F0C7CB2A4109EB00F9BFA3 /* User.swift in Sources */,
 				95F0C7B82A409CF900F9BFA3 /* AuthHeaderView.swift in Sources */,
 				95F0C79C2A404D5F00F9BFA3 /* SideMenuRowView.swift in Sources */,
 				95F0C7B52A409B7900F9BFA3 /* CustomInputField.swift in Sources */,
@@ -487,9 +497,11 @@
 				95F0C7862A3C8F4A00F9BFA3 /* ExploreView.swift in Sources */,
 				95F0C79E2A404D6D00F9BFA3 /* SideMenuViewModel.swift in Sources */,
 				95F0C7AF2A40973800F9BFA3 /* LoginView.swift in Sources */,
+				95874A192A41A0AD00135B2D /* ProfilePhotoSelectorView.swift in Sources */,
 				95F0C7952A404B2000F9BFA3 /* UserRowView.swift in Sources */,
 				95F0C7B12A40981C00F9BFA3 /* RoundedShape.swift in Sources */,
 				95F0C7BA2A409E5E00F9BFA3 /* AuthButton.swift in Sources */,
+				95874A1D2A41AAE800135B2D /* ImageUploader.swift in Sources */,
 				95F0C7A22A4054DD00F9BFA3 /* SideMenuOptionRowView.swift in Sources */,
 				95F0C7802A3C8E5100F9BFA3 /* MainTabView.swift in Sources */,
 				95F0C7C72A40B34800F9BFA3 /* AuthViewModel.swift in Sources */,

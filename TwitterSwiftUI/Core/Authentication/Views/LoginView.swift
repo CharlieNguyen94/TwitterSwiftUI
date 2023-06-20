@@ -18,6 +18,7 @@ struct LoginView: View {
 				CustomInputField(
 					imageName: "lock",
 					placeholderText: "Password",
+					isSecureField: true,
 					text: $password
 				)
 			}
@@ -40,7 +41,9 @@ struct LoginView: View {
 			}
 
 			AuthButton(title: "Sign In") {
-				viewModel.login(withEmail: email, password: password)
+				Task {
+					try await viewModel.login(withEmail: email, password: password)
+				}
 			}
 
 			Spacer()

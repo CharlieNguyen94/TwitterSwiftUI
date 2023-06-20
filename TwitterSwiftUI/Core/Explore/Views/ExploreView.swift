@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ExploreView: View {
 	var body: some View {
-		NavigationStack {
+		NavigationView {
 			VStack {
 				ScrollView {
 					LazyVStack {
