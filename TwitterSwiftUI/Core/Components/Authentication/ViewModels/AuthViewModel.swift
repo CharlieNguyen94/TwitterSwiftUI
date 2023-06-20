@@ -14,9 +14,13 @@ class AuthViewModel: ObservableObject {
 	@Published var profileImage: Image?
 	private var uiImage: UIImage?
 	private var tempUserSession: FirebaseAuth.User?
+	private let service = UserService()
 
 	init() {
 		self.userSession = Auth.auth().currentUser
+		Task {
+			try await loadUserData()
+		}
 	}
 
 	@MainActor
@@ -33,6 +37,7 @@ class AuthViewModel: ObservableObject {
 		do {
 			let result = try await Auth.auth().signIn(withEmail: email, password: password)
 			self.userSession = result.user
+			try await loadUserData()
 		} catch {
 			print(error.localizedDescription)
 		}
@@ -42,6 +47,15 @@ class AuthViewModel: ObservableObject {
 		try? Auth.auth().signOut()
 		self.userSession = nil
 		self.currentUser = nil
+		self.didAuthenticateUser = false
+		self.selectedImage = nil
+	}
+
+	@MainActor
+	func loadUserData() async throws {
+		self.userSession = Auth.auth().currentUser
+		guard let currentUid = userSession?.uid else { return }
+		self.currentUser = try await UserService.fetchUser(withId: currentUid)
 	}
 
 	@MainActor
@@ -58,7 +72,6 @@ class AuthViewModel: ObservableObject {
 	@MainActor
 	private func uploadUserData(id: String, email: String, fullname: String, username: String) async {
 		let user = User(id: id, email: email, fullname: fullname, username: username.lowercased(), profileImageUrl: nil)
-		self.currentUser = user
 		guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
 		try? await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
 		self.didAuthenticateUser = true
@@ -80,6 +93,7 @@ class AuthViewModel: ObservableObject {
 					.updateData(data)
 			}
 			self.userSession = self.tempUserSession
+			self.currentUser = try await UserService.fetchUser(withId: uid)
 		}
 	}
 }
