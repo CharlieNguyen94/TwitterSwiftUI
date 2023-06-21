@@ -1,35 +1,38 @@
 import SwiftUI
+import Firebase
 
 struct TweetRowView: View {
+	let tweet: Tweet
+
 	var body: some View {
 		VStack(alignment: .leading) {
 
 			// profile image + user info + tweet
-			HStack(alignment: .top, spacing: 12) {
-				Circle()
-					.frame(width: 56, height: 56)
-					.foregroundColor(.blue)
+			if let user = tweet.user {
+				HStack(alignment: .top, spacing: 12) {
+					ProfileImageView(profileImageUrl: user.profileImageUrl, size: .medium)
 
-				// User info & Tweet caption
-				VStack(alignment: .leading, spacing: 4) {
-					HStack {
-						Text("Bruce Wayne")
-							.font(.subheadline.bold())
+					// User info & Tweet caption
+					VStack(alignment: .leading, spacing: 4) {
+						HStack {
+							Text(user.fullname)
+								.font(.subheadline.bold())
 
-						Text("@batman")
-							.foregroundColor(.gray)
-							.font(.caption)
+							Text("@\(user.username)")
+								.foregroundColor(.gray)
+								.font(.caption)
 
-						Text("2w")
-							.foregroundColor(.gray)
-							.font(.caption)
+							Text("2w")
+								.foregroundColor(.gray)
+								.font(.caption)
+						}
+						// tweet caption
+
+						Text(tweet.caption)
+							.font(.subheadline)
+							.multilineTextAlignment(.leading)
+
 					}
-					// tweet caption
-
-					Text("I believe in Harvey Dent")
-						.font(.subheadline)
-						.multilineTextAlignment(.leading)
-
 				}
 			}
 
@@ -84,6 +87,6 @@ struct TweetRowView: View {
 
 struct TweetRowView_Previews: PreviewProvider {
 	static var previews: some View {
-		TweetRowView()
+		TweetRowView(tweet: Tweet(id: "", caption: "", likes: 0, timestamp: Timestamp(date: Date())))
 	}
 }

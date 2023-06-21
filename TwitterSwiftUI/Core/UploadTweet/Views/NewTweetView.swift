@@ -1,8 +1,11 @@
 import SwiftUI
 
 struct NewTweetView: View {
+	@EnvironmentObject var authViewModel: AuthViewModel
 	@Environment(\.dismiss) var dismiss
 	@State private var text = ""
+	@ObservedObject var viewModel = UploadTweetViewModel()
+
 
 	var body: some View {
 		VStack {
@@ -17,7 +20,9 @@ struct NewTweetView: View {
 				Spacer()
 
 				Button {
-
+					Task {
+						try await viewModel.uploadTweet(withCaption: text)
+					}
 				} label: {
 					Text("Tweet")
 						.bold()
@@ -31,8 +36,9 @@ struct NewTweetView: View {
 			.padding()
 
 			HStack(alignment: .top) {
-				Circle()
-					.frame(width: 64, height: 64)
+				if let user = authViewModel.currentUser {
+					ProfileImageView(profileImageUrl: user.profileImageUrl, size: .medium)
+				}
 
 				TextField("What's happening?", text: $text, axis: .vertical)
 					.padding(4)
@@ -40,6 +46,11 @@ struct NewTweetView: View {
 			.padding()
 
 			Spacer()
+		}
+		.onReceive(viewModel.$didUploadTweet) { success in
+			if success {
+				dismiss()
+			}
 		}
 	}
 }
