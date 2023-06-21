@@ -56,11 +56,7 @@ extension ContentView {
 							showMenu.toggle()
 						}
 					} label: {
-						KFImage(URL(string: user.profileImageUrl ?? ""))
-							.resizable()
-							.scaledToFill()
-							.frame(width: 32, height: 32)
-							.clipShape(Circle())
+						ProfileImageView(profileImageUrl: user.profileImageUrl, size: .small)
 					}
 				}
 			}

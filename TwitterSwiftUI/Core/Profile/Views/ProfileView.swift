@@ -49,11 +49,7 @@ extension ProfileView {
 						.offset(x: 16, y: -4)
 				}
 
-				KFImage(URL(string: user.profileImageUrl ?? ""))
-					.resizable()
-					.scaledToFill()
-					.clipShape(Circle())
-					.frame(width: 72, height: 72)
+				ProfileImageView(profileImageUrl: user.profileImageUrl, size: .large)
 					.offset(x: 16, y: 28)
 			}
 		}

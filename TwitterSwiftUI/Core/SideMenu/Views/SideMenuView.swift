@@ -8,11 +8,7 @@ struct SideMenuView: View {
 		if let user = authViewModel.currentUser {
 			VStack(alignment: .leading, spacing: 32) {
 				VStack(alignment: .leading) {
-					KFImage(URL(string: user.profileImageUrl ?? ""))
-						.resizable()
-						.scaledToFill()
-						.clipShape(Circle())
-						.frame(width: 48, height: 48)
+					ProfileImageView(profileImageUrl: user.profileImageUrl, size: .medium)
 
 					VStack(alignment: .leading, spacing: 4) {
 						Text(user.fullname)
