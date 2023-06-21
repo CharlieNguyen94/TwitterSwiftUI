@@ -9,6 +9,10 @@ class ProfileViewModel: ObservableObject {
 		self.user = user
 	}
 
+	var actionButtonTitle: String {
+		return user.isCurrentUser ? "Edit Profile" : "Follow"
+	}
+
 	func tweets(forFiler filter: TweetFilterViewModel) -> [Tweet] {
 		switch filter {
 		case .tweets:
