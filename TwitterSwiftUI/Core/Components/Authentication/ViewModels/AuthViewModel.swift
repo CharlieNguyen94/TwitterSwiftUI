@@ -72,8 +72,9 @@ class AuthViewModel: ObservableObject {
 	@MainActor
 	private func uploadUserData(id: String, email: String, fullname: String, username: String) async {
 		let user = User(id: id, email: email, fullname: fullname, username: username.lowercased(), profileImageUrl: nil)
-		guard let encodedUser = try? Firestore.Encoder().encode(user) else { return }
-		try? await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
+		guard let encodedUser = try? Firestore.Encoder().encode(user),
+			  let userId = user.id else { return }
+		try? await Firestore.firestore().collection("users").document(userId).setData(encodedUser)
 		self.didAuthenticateUser = true
 	}
 

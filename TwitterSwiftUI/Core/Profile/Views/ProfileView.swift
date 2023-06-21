@@ -3,12 +3,12 @@ import Kingfisher
 
 struct ProfileView: View {
 	@State private var selectedFilter: TweetFilterViewModel = .tweets
+	@ObservedObject var viewModel: ProfileViewModel
 	@Environment(\.dismiss) var dismiss
 	@Namespace var animation
-	private let user: User
 
 	init(user: User) {
-		self.user = user
+		self.viewModel = ProfileViewModel(user: user)
 	}
 
     var body: some View {
@@ -23,6 +23,12 @@ struct ProfileView: View {
 		}
 		.toolbar(.hidden)
 		.ignoresSafeArea(edges: .bottom)
+		.onAppear {
+			Task {
+				try await viewModel.fetchUserTweets()
+				try await viewModel.fetchLikedTweets()
+			}
+		}
     }
 }
 
@@ -49,7 +55,7 @@ extension ProfileView {
 						.offset(x: 16, y: -4)
 				}
 
-				ProfileImageView(profileImageUrl: user.profileImageUrl, size: .large)
+				ProfileImageView(profileImageUrl: viewModel.user.profileImageUrl, size: .large)
 					.offset(x: 16, y: 28)
 			}
 		}
@@ -81,14 +87,14 @@ extension ProfileView {
 	var userInfoDetails: some View {
 		VStack(alignment: .leading, spacing: 4) {
 			HStack {
-				Text(user.fullname)
+				Text(viewModel.user.fullname)
 					.font(.title2.bold())
 
 				Image(systemName: "checkmark.seal.fill")
 					.foregroundColor(.blue)
 			}
 
-			Text("@\(user.username)")
+			Text("@\(viewModel.user.username)")
 				.font(.subheadline)
 				.foregroundColor(.gray)
 
@@ -151,9 +157,9 @@ extension ProfileView {
 	var tweetsView: some View {
 		ScrollView {
 			LazyVStack {
-				ForEach(0...9, id: \.self) { _ in
-//					TweetRowView()
-//						.padding()
+				ForEach(viewModel.tweets(forFiler: selectedFilter)) { tweet in
+					TweetRowView(tweet: tweet)
+						.padding()
 				}
 			}
 		}

@@ -2,13 +2,17 @@ import SwiftUI
 import Firebase
 
 struct TweetRowView: View {
-	let tweet: Tweet
+	@ObservedObject var viewModel: TweetRowViewModel
+
+	init(tweet: Tweet) {
+		self.viewModel = TweetRowViewModel(tweet: tweet)
+	}
 
 	var body: some View {
 		VStack(alignment: .leading) {
 
 			// profile image + user info + tweet
-			if let user = tweet.user {
+			if let user = viewModel.tweet.user {
 				HStack(alignment: .top, spacing: 12) {
 					ProfileImageView(profileImageUrl: user.profileImageUrl, size: .medium)
 
@@ -28,7 +32,7 @@ struct TweetRowView: View {
 						}
 						// tweet caption
 
-						Text(tweet.caption)
+						Text(viewModel.tweet.caption)
 							.font(.subheadline)
 							.multilineTextAlignment(.leading)
 
@@ -59,11 +63,15 @@ struct TweetRowView: View {
 				Spacer()
 
 				Button {
-
+					Task {
+						viewModel.tweet.didLike ?? false ?
+						try await viewModel.unlikeTweet() :
+						try await viewModel.likeTweet()
+					}
 				} label: {
-					Image(systemName: "heart")
+					Image(systemName: viewModel.tweet.didLike ?? false ? "heart.fill" : "heart")
 						.font(.subheadline)
-
+						.foregroundColor(viewModel.tweet.didLike ?? false ? .red : .gray)
 				}
 
 				Spacer()
@@ -82,11 +90,16 @@ struct TweetRowView: View {
 			Divider()
 
 		}
+		.onAppear {
+			Task {
+				try await viewModel.checkIfUserLikedTweet()
+			}
+		}
 	}
 }
 
 struct TweetRowView_Previews: PreviewProvider {
 	static var previews: some View {
-		TweetRowView(tweet: Tweet(id: "", caption: "", likes: 0, timestamp: Timestamp(date: Date())))
+		TweetRowView(tweet: Tweet(id: "", uid: "", caption: "", likes: 0, timestamp: Timestamp(date: Date())))
 	}
 }
